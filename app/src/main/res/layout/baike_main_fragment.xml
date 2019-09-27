@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridLayout_one"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alignmentMode="alignBounds"
+    android:columnCount="2"
+    android:columnOrderPreserved="false"
+    android:paddingLeft="75dp"
+    android:paddingTop="30dp"
+    android:paddingRight="75dp"
+    android:rowCount="3"
+    android:useDefaultMargins="true">
+
+
+    <RelativeLayout
+        android:layout_row="0"
+        android:layout_column="0"
+        android:layout_marginRight="30dp"
+        android:paddingBottom="50dp">
+
+        <ImageButton
+            android:id="@+id/image_youcai"
+            style="@style/GridLayout_Imager"
+            android:src="@drawable/youcai" />
+
+
+        <TextView
+            style="@style/GridLayout_Buttom_Text"
+            android:layout_alignBottom="@+id/image_youcai"
+            android:text="油菜" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_gravity="right"
+        android:paddingBottom="50dp">
+
+        <ImageButton
+            android:id="@+id/image_chaye"
+            style="@style/GridLayout_Imager"
+            android:src="@drawable/chaye" />
+        />
+
+        <TextView
+            style="@style/GridLayout_Buttom_Text"
+            android:layout_alignBottom="@+id/image_chaye"
+            android:text="茶叶" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_row="1"
+        android:layout_column="0"
+        android:paddingBottom="50dp">
+
+        <ImageButton
+            android:id="@+id/image_mianhua"
+            style="@style/GridLayout_Imager"
+
+            android:src="@drawable/mianhuatang" />
+
+        <TextView
+            style="@style/GridLayout_Buttom_Text"
+            android:layout_alignBottom="@+id/image_mianhua"
+            android:layout_marginTop="10dp"
+            android:text="棉花" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_gravity="right"
+        android:gravity="center_horizontal">
+
+        <ImageButton
+            android:id="@+id/image_shengxian"
+            style="@style/GridLayout_Imager"
+            android:src="@drawable/shengxian" />
+
+        <TextView
+            style="@style/GridLayout_Buttom_Text"
+            android:layout_alignBottom="@+id/image_shengxian"
+            android:text="玉米" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_row="2"
+        android:layout_column="0"
+        android:paddingBottom="50dp">
+
+        <ImageButton
+            android:id="@+id/image_shuidao"
+            style="@style/GridLayout_Imager"
+            android:src="@drawable/shuidao" />
+
+        <TextView
+            style="@style/GridLayout_Buttom_Text"
+            android:layout_alignBottom="@+id/image_shuidao"
+            android:text="水稻" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_gravity="right">
+
+        <ImageButton
+            android:id="@+id/image_tobacco"
+            style="@style/GridLayout_Imager"
+            android:src="@drawable/yancao" />
+
+        <TextView
+            style="@style/GridLayout_Buttom_Text"
+            android:layout_alignBottom="@+id/image_tobacco"
+            android:text="烟草" />
+
+    </RelativeLayout>
+
+
+</GridLayout>
+
