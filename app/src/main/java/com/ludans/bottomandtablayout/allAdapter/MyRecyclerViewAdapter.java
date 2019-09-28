@@ -2,6 +2,8 @@ package com.ludans.bottomandtablayout.allAdapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +22,10 @@ import java.util.List;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
 
     private Context context;
+
     private ArrayList<ChangDeNewsBean> mDate;
     private static final String TAG = "MyRecyclerViewAdapter";
-
+    private  FragmentManager fm;
     public MyRecyclerViewAdapter(Context context, ArrayList<ChangDeNewsBean> mDate) {
         this.context = context;
         this.mDate = mDate;

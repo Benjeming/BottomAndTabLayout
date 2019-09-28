@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,6 +67,7 @@ public class PagerPointFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "三农观点onCreate----->");
         if (getArguments() != null) {
             mParam1 = getArguments().getInt(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -76,6 +78,7 @@ public class PagerPointFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "三农观点onCreateView----->");
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
         initView(rootView,3);
@@ -115,23 +118,20 @@ public class PagerPointFragment extends Fragment {
     public void postJson( int type) {
         randomPath = new RandomPath(type);
         String homePath = randomPath.getPath();
-        Log.d(TAG, "postJson: 随机url：" + homePath);
+//        Log.d(TAG, "postJson: 随机url：" + homePath);
 
         OkHttpsUtils.sendRequestWithOkHttp(homePath, new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                Log.d(TAG, "onFailure: 网络连接失败！");
+//                Log.d(TAG, "onFailure: 网络连接失败！");
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 Log.d(TAG, "onResponse: 网络连接成功！！");
                 String body = response.body().string();
-                Gson gson = new Gson();
-                mDate = gson.fromJson(body, new TypeToken<ArrayList<ChangDeNewsBean>>() {
-                }.getType());
-                Log.d(TAG, "onResponse: Gson 解析成功！");
-                adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
+
+
 
 //            Setting Adapter and Setting mData
 
@@ -150,7 +150,7 @@ public class PagerPointFragment extends Fragment {
             Gson gson = new Gson();
             mDate = gson.fromJson(responseBody, new TypeToken<ArrayList<ChangDeNewsBean>>() {
             }.getType());
-            Log.d(TAG, "onResponse: Gson 解析成功！");
+//            Log.d(TAG, "onResponse: Gson 解析成功！");
             adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
 
 //            Setting Adapter and Setting mData
@@ -162,4 +162,55 @@ public class PagerPointFragment extends Fragment {
 
         }
     };
+
+
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "三农观点onStart------>");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "三农观点onAttach------> ");
+    }
+
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d(TAG, "三农观点onActivityCreated-----------> ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "三农观点onResume-----> ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "三农观点onPause:----->");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "三农观点onStop:----->");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "三农观点onDestroyView----->");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "三农观点onDestroy:----->");
+    }
 }

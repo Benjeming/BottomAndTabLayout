@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 import com.ludans.bottomandtablayout.R;
 import com.ludans.bottomandtablayout.allAdapter.MyRecyclerViewAdapter;
 import com.ludans.bottomandtablayout.allBean.ChangDeNewsBean;
-import com.ludans.bottomandtablayout.allFragment.PagerFragment;
 import com.ludans.bottomandtablayout.utils.OkHttpsUtils;
 import com.ludans.bottomandtablayout.utils.RandomPath;
 
@@ -34,7 +34,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 
-public class PagerChangDeFragment extends Fragment {
+public class PagerChangDeFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -49,6 +49,7 @@ public class PagerChangDeFragment extends Fragment {
     private List<ChangDeNewsBean> mDate;
     private MyRecyclerViewAdapter adapter;
     private RandomPath randomPath ;
+//    private View rootView;
 
 
     public PagerChangDeFragment() {
@@ -63,10 +64,18 @@ public class PagerChangDeFragment extends Fragment {
         return fragment;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "常德农业onResume-----> ");
+//        initView(rootView,1);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "常德农业onCreateView----->");
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
 
@@ -81,6 +90,7 @@ public class PagerChangDeFragment extends Fragment {
         TextView textView = rootView.findViewById(R.id.pager_text);
         // RecyclerView 初始化
         recyclerView = rootView.findViewById(R.id.pager_recycler);
+//        recyclerView.
         // swipeRefreshLayout 初始化
         swipeRefreshLayout = rootView.findViewById(R.id.pager_refresh);
         swipeRefreshLayout.setRefreshing(true);
@@ -107,8 +117,8 @@ public class PagerChangDeFragment extends Fragment {
     public void postJson(int type) {
         randomPath = new RandomPath(type);
         String homePath = randomPath.getPath();
-        Log.d(TAG, "网站："+homePath);
-        Log.d(TAG, "postJson: 随机url：" + homePath);
+//        Log.d(TAG, "网站："+homePath);
+//        Log.d(TAG, "postJson: 随机url：" + homePath);
 
         OkHttpsUtils.sendRequestWithOkHttp(homePath, new Callback() {
             @Override
@@ -118,13 +128,8 @@ public class PagerChangDeFragment extends Fragment {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                Log.d(TAG, "onResponse: 网络连接成功！！");
+//                Log.d(TAG, "onResponse: 网络连接成功！！");
                 String body = response.body().string();
-                Gson gson = new Gson();
-                mDate = gson.fromJson(body, new TypeToken<ArrayList<ChangDeNewsBean>>() {
-                }.getType());
-                Log.d(TAG, "onResponse: Gson 解析成功！");
-                adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
 
 //            Setting Adapter and Setting mData
 
@@ -157,7 +162,7 @@ public class PagerChangDeFragment extends Fragment {
             Gson gson = new Gson();
             mDate = gson.fromJson(responseBody, new TypeToken<ArrayList<ChangDeNewsBean>>() {
             }.getType());
-            Log.d(TAG, "onResponse: Gson 解析成功！");
+//            Log.d(TAG, "onResponse: Gson 解析成功！");
             adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
 
 //            Setting Adapter and Setting mData
@@ -170,4 +175,58 @@ public class PagerChangDeFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "常德农业onStart------>");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "常德农业onAttach------> ");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "常德农业onCreate----->");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d(TAG, "常德农业onActivityCreated-----------> ");
+    }
+
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "常德农业onPause:----->");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "常德农业onStop:----->");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "常德农业onDestroyView----->");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "常德农业onDestroy:----->");
+    }
 }

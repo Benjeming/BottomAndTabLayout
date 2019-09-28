@@ -1,10 +1,10 @@
 package com.ludans.bottomandtablayout.allFragment.Home;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 import com.ludans.bottomandtablayout.R;
 import com.ludans.bottomandtablayout.allAdapter.MyRecyclerViewAdapter;
 import com.ludans.bottomandtablayout.allBean.ChangDeNewsBean;
-import com.ludans.bottomandtablayout.allFragment.PagerFragment;
 import com.ludans.bottomandtablayout.utils.OkHttpsUtils;
 import com.ludans.bottomandtablayout.utils.RandomPath;
 
@@ -42,14 +41,14 @@ public class PagerZhiDaoFragment extends Fragment {
     private String mParam2;
 
 
-
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private List<ChangDeNewsBean> mDate;
     private MyRecyclerViewAdapter adapter;
-    private RandomPath randomPath ;
+    private RandomPath randomPath;
 
     private static final String TAG = "PagerZhiDaoFragment";
+
     public PagerZhiDaoFragment() {
         // Required empty public constructor
     }
@@ -67,9 +66,10 @@ public class PagerZhiDaoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "农事指导onCreateView----->");
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
-        initView(rootView,2);
+        initView(rootView, 2);
         return rootView;
     }
 
@@ -99,16 +99,16 @@ public class PagerZhiDaoFragment extends Fragment {
             @Override
             public void run() {
                 super.run();
-                postJson( urlType);
+                postJson(urlType);
             }
         }.start();
     }
 
 
-    public void postJson( int type) {
+    public void postJson(int type) {
         randomPath = new RandomPath(type);
         String homePath = randomPath.getPath();
-        Log.d(TAG, "postJson: 随机url：" + homePath);
+//        Log.d(TAG, "postJson: 随机url：" + homePath);
 
         OkHttpsUtils.sendRequestWithOkHttp(homePath, new Callback() {
             @Override
@@ -118,13 +118,8 @@ public class PagerZhiDaoFragment extends Fragment {
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                Log.d(TAG, "onResponse: 网络连接成功！！");
+//                Log.d(TAG, "onResponse: 网络连接成功！！");
                 String body = response.body().string();
-                Gson gson = new Gson();
-                mDate = gson.fromJson(body, new TypeToken<ArrayList<ChangDeNewsBean>>() {
-                }.getType());
-                Log.d(TAG, "onResponse: Gson 解析成功！");
-                adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
 
 //            Setting Adapter and Setting mData
 
@@ -159,7 +154,7 @@ public class PagerZhiDaoFragment extends Fragment {
             Gson gson = new Gson();
             mDate = gson.fromJson(responseBody, new TypeToken<ArrayList<ChangDeNewsBean>>() {
             }.getType());
-            Log.d(TAG, "onResponse: Gson 解析成功！");
+//            Log.d(TAG, "onResponse: Gson 解析成功！");
             adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
 
 //            Setting Adapter and Setting mData
@@ -168,7 +163,60 @@ public class PagerZhiDaoFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(adapter);
             swipeRefreshLayout.setRefreshing(false);
-
         }
     };
+
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "农事指导onStart------>");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "农事指导onAttach------> ");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "农事指导onCreate----->");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d(TAG, "农事指导onActivityCreated-----------> ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "农事指导onResume-----> ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "农事指导onPause:----->");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "农事指导onStop:----->");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "农事指导onDestroyView----->");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "农事指导onDestroy:----->");
+    }
 }

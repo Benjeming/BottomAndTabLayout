@@ -1,9 +1,11 @@
 package com.ludans.bottomandtablayout.allFragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -80,6 +82,7 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "百科onCreate----->");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -90,6 +93,7 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "百科onCreateView----->");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.baike_main_fragment, container, false);
         initView(view);
@@ -238,4 +242,57 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
             }
         });
     }
+
+
+//    ====================================实验=========================================？
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "百科onStart------>");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "百科onAttach------> ");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d(TAG, "百科onActivityCreated-----------> ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "百科onResume-----> ");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "百科onPause:----->");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "百科onStop:----->");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "百科onDestroyView----->");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "百科onDestroy:----->");
+    }
+
 }

@@ -28,15 +28,15 @@ public class RandomPath {
 
     public String getPath() {
         if (getType() == 1) {
-            Log.d(TAG, "Random首页中的网站："+getHomePath());
+//            Log.d(TAG, "Random首页中的网站："+getHomePath());
             return getHomePath();
         }
         if (getType() == 2) {
-            Log.d(TAG, "Random指导中的网站："+getNongPath());
+//            Log.d(TAG, "Random指导中的网站："+getNongPath());
             return getNongPath();
         }
         if (getType() == 3) {
-            Log.d(TAG, "Random中的网站："+getSanPath());
+//            Log.d(TAG, "Random中的网站："+getSanPath());
             return getSanPath();
         }
         return "不符合条件";
@@ -45,8 +45,6 @@ public class RandomPath {
     public int getType() {
         return type;
     }
-
-
 
     public String getHomePath() {
         random = new Random();

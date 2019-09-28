@@ -37,7 +37,7 @@ public class HomeViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
 //        返回具体的Item
 
-        Log.d(TAG, "获得的标题："+getPageTitle(i));
+//        Log.d(TAG, "获得的标题："+getPageTitle(i));
         if ("常德农业".equals(getPageTitle(i))){
             return PagerChangDeFragment.newInstance(1,null);
         }
