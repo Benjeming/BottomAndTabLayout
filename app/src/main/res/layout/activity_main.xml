@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:id="@+id/activity_main"
+    tools:context=".MainActivity"
+    tools:ignore="InvalidId">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"

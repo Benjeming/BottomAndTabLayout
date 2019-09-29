@@ -31,6 +31,7 @@ public class FragmentWebView extends Fragment {
         View view =  inflater.inflate(R.layout.webview,container,false);
         initView(view);
 
+
         return view;
     }
 
@@ -77,6 +78,7 @@ public class FragmentWebView extends Fragment {
 
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(TARGET_URL);
+        
 //        FragmentTransaction ft = getFragmentManager().beginTransaction();
 //
 //        ft.addToBackStack(null);

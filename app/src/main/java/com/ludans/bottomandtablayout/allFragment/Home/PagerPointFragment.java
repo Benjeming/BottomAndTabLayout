@@ -1,6 +1,7 @@
 package com.ludans.bottomandtablayout.allFragment.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,10 +20,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ludans.bottomandtablayout.R;
+import com.ludans.bottomandtablayout.activity.NewsContent;
 import com.ludans.bottomandtablayout.allAdapter.MyRecyclerViewAdapter;
 import com.ludans.bottomandtablayout.allBean.ChangDeNewsBean;
 import com.ludans.bottomandtablayout.allFragment.PagerFragment;
 import com.ludans.bottomandtablayout.utils.OkHttpsUtils;
+import com.ludans.bottomandtablayout.utils.PathConfing;
 import com.ludans.bottomandtablayout.utils.RandomPath;
 
 import org.jetbrains.annotations.NotNull;
@@ -50,6 +53,7 @@ public class PagerPointFragment extends Fragment {
     private List<ChangDeNewsBean> mDate;
     private MyRecyclerViewAdapter adapter;
     private RandomPath randomPath ;
+    private PathConfing pathConfing;
 
     public PagerPointFragment() {
         // Required empty public constructor
@@ -67,6 +71,7 @@ public class PagerPointFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pathConfing = new PathConfing();
         Log.d(TAG, "三农观点onCreate----->");
         if (getArguments() != null) {
             mParam1 = getArguments().getInt(ARG_PARAM1);
@@ -152,7 +157,16 @@ public class PagerPointFragment extends Fragment {
             }.getType());
 //            Log.d(TAG, "onResponse: Gson 解析成功！");
             adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
-
+            adapter.setOnItemClickListener(new MyRecyclerViewAdapter.OnItemClickListener() {
+                @Override
+                public void OnItemClick(View v, int postion) {
+                    Intent intent = new Intent(getActivity(), NewsContent.class);
+                    intent.putExtra("url",pathConfing.BASE_URL+mDate.get(postion).getUrl());
+                    intent.putExtra("title",mDate.get(postion).getTitle());
+//                    intent.putExtra("mData", (CharSequence) mDate);
+                    startActivity(intent);
+                }
+            });
 //            Setting Adapter and Setting mData
 
 

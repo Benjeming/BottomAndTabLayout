@@ -1,12 +1,10 @@
 package com.ludans.bottomandtablayout;
 
-import android.os.Build;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Window;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -21,13 +19,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     private HomeFragment homeFragment;
     private BaiKeFragment baiKeFragment;
     private static final String TAG = "MainActivity";
-
+    private Fragment mTempContent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 //        Log.e(TAG, "onCreate: 创建HomeFragemt" );
         homeFragment = new HomeFragment();
@@ -43,9 +41,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         mtoolBar = (Toolbar) findViewById(R.id.toolBar);
         mtoolBar.setTitle("常德头条-首页");
 //        setSupportActionBar(mtoolBar);
-
 //        设置Fragment
-
         //设置底部导航
         bottomNavigationBar = findViewById(R.id.activity_bottom_navigation);
         bottomNavigationBar
@@ -55,7 +51,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setTabSelectedListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.activity_fragment, homeFragment).commit();
+        switchFrament(mTempContent,homeFragment);
+
+//        getSupportFragmentManager().beginTransaction().replace(R.id.activity_fragment, homeFragment).commit();
     }
 
     @Override
@@ -64,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         switch (position) {
             case 0:
                 mtoolBar.setTitle("常德头条-首页");
-                fm.replace(R.id.activity_fragment, homeFragment).commit();
+                switchFrament(mTempContent, homeFragment);
                 break;
             case 1:
                 mtoolBar.setTitle("常德头条-百科");
-                fm.replace(R.id.activity_fragment, baiKeFragment).commit();
+                switchFrament(mTempContent, baiKeFragment);
                 break;
             case 2:
                 mtoolBar.setTitle("常德头条-图片");
@@ -76,6 +74,31 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                 break;
 
         }
+    }
+
+    private void switchFrament(Fragment from, Fragment to) {
+        if (from != to) {
+            mTempContent = to;
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            if (!to.isAdded()) {
+//                隐藏from，添加to
+                if (from != null) {
+                    ft.hide(from);
+                }
+                if (to != null) {
+                    ft.add(R.id.activity_fragment, to).commit();
+                }
+            } else {
+                if (from != null) {
+                    ft.hide(from);
+                }
+                if (to != null) {
+                    ft.show(to).commit();
+                }
+            }
+        }
+
+
     }
 
     @Override

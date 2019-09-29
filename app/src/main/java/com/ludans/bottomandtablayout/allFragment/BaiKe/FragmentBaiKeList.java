@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ludans.bottomandtablayout.R;
+import com.ludans.bottomandtablayout.activity.ArticleContent;
 import com.ludans.bottomandtablayout.allAdapter.BaiKeAdapter.BaiKeListAdapter;
 import com.ludans.bottomandtablayout.allBean.CropBean;
 
@@ -34,6 +35,7 @@ public class FragmentBaiKeList extends Fragment implements AdapterView.OnItemCli
     private FragmentManager fragmentManager = getFragmentManager();
     private final String BASE_URL = "http://crop.agridata.cn";
     private FragmentBaiKeList fragmentBaiKeList;
+    private Fragment mTempContent;
 
     public FragmentBaiKeList() {
     }
@@ -73,29 +75,64 @@ public class FragmentBaiKeList extends Fragment implements AdapterView.OnItemCli
             @Override
             public void run() {
                 FragmentWebView wb = new FragmentWebView();
-                Log.d(TAG, "返回WebView的id："+getFragmentManager().getFragments()
-                +"\n"+"Primary:"+getFragmentManager().findFragmentById(R.id.activity_fragment)
-                        +"\n数量："+getFragmentManager().getBackStackEntryCount()
-                );
+//                Log.d(TAG, "返回WebView的id："+getFragmentManager().getFragments()
+//                +"\n"+"Primary:"+getFragmentManager().findFragmentById(R.id.activity_fragment)
+//                        +"\n数量："+getFragmentManager().getBackStackEntryCount()
+//                );
                 Bundle bundle = getArguments();
 
                 String urlTemp = bundle.getString("url");
-                Log.d(TAG, "run: 重新调用"+urlTemp);
+
                 ArrayList<CropBean> leftUrl1 = (ArrayList<CropBean>) bundle.getSerializable("leftUrl");
-                Log.d(TAG, "run: 重新调用上:\n"+leftUrl1.toString());
                 ArrayList<CropBean> urlList = leftUrl1;
+
                 String restUrl = urlList.get(0).getContent().get(position).getCrop_disasters_url();
-                Log.d(TAG, "重新调用下: "+restUrl);
-                bundle.putString("url",urlTemp);
-                bundle.putSerializable("leftUrl",restUrl);
+
+                bundle.putString("url", urlTemp);
+                bundle.putSerializable("leftUrl", restUrl);
                 wb.setArguments(bundle);
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.activity_fragment,wb);
-                ft.addToBackStack(null);
-                ft.commit();
+
+                String sendUrl = BASE_URL + urlTemp + "/" + restUrl;
+
+                Intent intent = new Intent(getContext(), ArticleContent.class);
+                intent.putExtra("url", sendUrl);
+                startActivity(intent);
+
+//                switchFragment(mTempContent,wb);
+
+//                FragmentTransaction ft = fragmentManager.beginTransaction();
+//                ft.replace(R.id.activity_fragment,wb);
+//                ft.addToBackStack(null);
+//                ft.commit();
 
 
             }
         }.start();
+    }
+
+    private void switchFragment(Fragment from, Fragment to) {
+
+        if (from != to) {
+            mTempContent = to;
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (!to.isAdded()) {
+//                隐藏from，添加to
+                if (from != null) {
+                    ft.hide(from);
+                }
+                if (to != null) {
+                    ft.add(R.id.activity_fragment, to)
+                            .commit();
+                }
+            } else {
+                if (from != null) {
+                    ft.hide(from);
+                }
+                if (to != null) {
+                    ft.show(to)
+                            .commit();
+                }
+            }
+        }
     }
 }

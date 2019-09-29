@@ -7,6 +7,8 @@ public class PathConfing {
         public final String  PATH_YOUCAI = "http://download.ludashi123.cn/cropdata/%E6%B2%B9%E6%96%99%E7%97%85%E8%99%AB%E5%AE%B3.json";//油菜
         public final String  PATH_YUMI = "http://download.ludashi123.cn/cropdata/%E7%8E%89%E7%B1%B3%E7%97%85%E8%99%AB%E5%AE%B3.json";//玉米
         public final String  PATH_YANCAO = "http://download.ludashi123.cn/cropdata/%E7%83%9F%E7%B3%96%E7%97%85%E5%AE%B3.json";//烟草
+        public final String  BASE_URL ="http://nyncj.changde.gov.cn";
+
     }
 
 

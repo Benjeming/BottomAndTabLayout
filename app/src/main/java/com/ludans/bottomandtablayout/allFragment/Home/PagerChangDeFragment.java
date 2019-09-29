@@ -1,6 +1,7 @@
 package com.ludans.bottomandtablayout.allFragment.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,9 +19,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ludans.bottomandtablayout.R;
+import com.ludans.bottomandtablayout.activity.ArticleContent;
+import com.ludans.bottomandtablayout.activity.NewsContent;
 import com.ludans.bottomandtablayout.allAdapter.MyRecyclerViewAdapter;
 import com.ludans.bottomandtablayout.allBean.ChangDeNewsBean;
 import com.ludans.bottomandtablayout.utils.OkHttpsUtils;
+import com.ludans.bottomandtablayout.utils.PathConfing;
 import com.ludans.bottomandtablayout.utils.RandomPath;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +38,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 
-public class PagerChangDeFragment extends Fragment implements View.OnClickListener {
+public class PagerChangDeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -48,7 +52,11 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private List<ChangDeNewsBean> mDate;
     private MyRecyclerViewAdapter adapter;
-    private RandomPath randomPath ;
+    private RandomPath randomPath;
+    private String responseBody;
+
+    private PathConfing pathConfing = new PathConfing();
+    private String BASE_URL = "http://nyncj.changde.gov.cn";
 //    private View rootView;
 
 
@@ -78,8 +86,7 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
         Log.d(TAG, "常德农业onCreateView----->");
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
-
-        initView(rootView,1);
+        initView(rootView, 1);
         return rootView;
     }
 
@@ -92,6 +99,7 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
         recyclerView = rootView.findViewById(R.id.pager_recycler);
 //        recyclerView.
         // swipeRefreshLayout 初始化
+
         swipeRefreshLayout = rootView.findViewById(R.id.pager_refresh);
         swipeRefreshLayout.setRefreshing(true);
 
@@ -108,7 +116,7 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
             @Override
             public void run() {
                 super.run();
-                postJson( urlType);
+                postJson(urlType);
             }
         }.start();
     }
@@ -154,11 +162,11 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
         });
     }
 
-    public Handler handler = new Handler() {
+    Handler handler = new Handler() {
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(final Message msg) {
             super.handleMessage(msg);
-            String responseBody = (String) msg.obj;
+            responseBody = (String) msg.obj;
             Gson gson = new Gson();
             mDate = gson.fromJson(responseBody, new TypeToken<ArrayList<ChangDeNewsBean>>() {
             }.getType());
@@ -166,7 +174,16 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
             adapter = new MyRecyclerViewAdapter(getContext(), (ArrayList<ChangDeNewsBean>) mDate);
 
 //            Setting Adapter and Setting mData
-
+            adapter.setOnItemClickListener(new MyRecyclerViewAdapter.OnItemClickListener() {
+                @Override
+                public void OnItemClick(View v, int postion) {
+                    Intent intent = new Intent(getActivity(), NewsContent.class);
+                    intent.putExtra("url", pathConfing.BASE_URL + mDate.get(postion).getUrl());
+                    intent.putExtra("title", mDate.get(postion).getTitle());
+//                    intent.putExtra("mData", (CharSequence) mDate);
+                    startActivity(intent);
+                }
+            });
 
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(adapter);
@@ -175,10 +192,6 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
         }
     };
 
-    @Override
-    public void onClick(View v) {
-
-    }
 
     public void onStart() {
         super.onStart();
@@ -203,7 +216,6 @@ public class PagerChangDeFragment extends Fragment implements View.OnClickListen
 
         Log.d(TAG, "常德农业onActivityCreated-----------> ");
     }
-
 
 
     @Override

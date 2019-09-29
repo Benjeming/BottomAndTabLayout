@@ -12,9 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".allFragment.BaiKe.WebViewOne"
-            android:label="@string/title_activity_web_view_one"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".activity.NewsContent"
+            android:label="新闻详情"></activity>
+        <activity android:name=".activity.ArticleContent" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".allFragment.BaiKe.ArticleContentShow" />
     </application>
 
 </manifest>

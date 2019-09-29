@@ -51,6 +51,7 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
     private List<CropBean> mCropData = new ArrayList<>();
     private PathConfing pathConfing = new PathConfing();
     private FragmentManager fManager = getFragmentManager();
+    private  Fragment mTempContent;
 
     @SuppressLint("ValidFragment")
     public BaiKeFragment(FragmentManager fManager) {
@@ -233,7 +234,7 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
                 //将mCropData数据装填到 列表中——（）
                 //将数据传递个下一个Fragment
 
-
+//                switchFrament(mTempContent,fb);
                 FragmentTransaction ft = getFragmentManager().beginTransaction()
                         .replace(R.id.activity_fragment, fb);
                 ft.addToBackStack(null);
@@ -241,6 +242,32 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
 
             }
         });
+    }
+    private void switchFrament(Fragment from, Fragment to) {
+        if (from != to) {
+            mTempContent = to;
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (!to.isAdded()) {
+//                隐藏from，添加to
+                if (from != null) {
+                    ft.hide(from);
+                }
+                if (to != null) {
+                    ft.add(R.id.activity_fragment, to).addToBackStack(null)
+                            .commit();
+                }
+            } else {
+                if (from != null) {
+                    ft.hide(from);
+                }
+                if (to != null) {
+                    ft.show(to).addToBackStack(null)
+                            .commit();
+                }
+            }
+        }
+
+
     }
 
 

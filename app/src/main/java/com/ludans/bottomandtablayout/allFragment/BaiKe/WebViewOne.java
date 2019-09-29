@@ -23,9 +23,6 @@ public class WebViewOne extends AppCompatActivity {
 
         String url = "http://crop.agridata.cn/disease/01%EF%BC%8D%E6%B0%B4%E7%A8%BB/0001-0003%20%E6%B0%B4%E7%A8%BB%E6%81%B6%E8%8B%97%E7%97%85.htm";
        WebViewOne webViewOne = new WebViewOne();
-
-
-
         WebView webView =findViewById(R.id.web_view);
 
 
