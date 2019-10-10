@@ -2,6 +2,7 @@ package com.ludans.bottomandtablayout.allFragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ludans.bottomandtablayout.R;
+import com.ludans.bottomandtablayout.activity.BaiKeList;
+import com.ludans.bottomandtablayout.activity.BaikeActivity;
 import com.ludans.bottomandtablayout.allBean.CropBean;
 import com.ludans.bottomandtablayout.allFragment.BaiKe.FragmentBaiKeList;
 import com.ludans.bottomandtablayout.allFragment.BaiKe.FragmentWebView;
@@ -190,6 +193,7 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
         }
     }
 
+/*=====================================备份=============================================================
     private void parseJsonWithGson(String address) throws IOException {
         // 联网获取json数据  ，  并解析json数据
 
@@ -216,7 +220,6 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
                 Bundle bundle = new Bundle();
                 bundle.putString("url",mCropData.get(0).getType());
                 bundle.putSerializable("leftUrl", (ArrayList<CropBean>) mCropData);
-
                 fb.setArguments(bundle);
 
 
@@ -242,6 +245,14 @@ public class BaiKeFragment extends Fragment implements View.OnClickListener { //
 
             }
         });
+    }
+==================================================================================================================*/
+    private void parseJsonWithGson(String typeUrl) throws IOException {
+        // 联网获取json数据  ，  并解析json数据
+//        获取url
+        Intent intent = new Intent(getActivity(), BaiKeList.class);
+        intent.putExtra("typeUrl",typeUrl);
+        startActivity(intent);
     }
     private void switchFrament(Fragment from, Fragment to) {
         if (from != to) {

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyImageStyle">
+        <item name="android:layout_margin">15dp</item>
+    </style>
+
     <style name="GridLayout_Imager">
 
         <item name="android:layout_width">80dp</item>
@@ -16,6 +20,10 @@
         <item name="android:layout_margin">15dp</item>
         <item name="android:background">@drawable/button_backgroup</item>
         <item name="android:paddingBottom">15dp</item>
+    </style>
+    <style name="view">
+
+
     </style>
 
     <style name="GridLayout_Buttom_Text">

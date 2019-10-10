@@ -9,14 +9,18 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.ludans.bottomandtablayout.R;
+import com.ludans.bottomandtablayout.utils.PathConfing;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.nio.file.Path;
 
 public class ArticleContent extends AppCompatActivity {
 
@@ -25,9 +29,20 @@ public class ArticleContent extends AppCompatActivity {
     private String url;
     private Toolbar toolbar;
     private WebView webView = null;
+    private PathConfing pathConfing =new PathConfing();
 
     private ProgressDialog dialog = null;
     private static final String TAG = ArticleContent.class.getSimpleName();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -35,10 +50,14 @@ public class ArticleContent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activitu_webview);
         toolbar = (Toolbar) findViewById(R.id.contentToolbar);
-        toolbar.setTitle("今日头条 - 文章内容");
-//        setSupportActionBar(toolbar);
+        toolbar.setTitle("  常德农技通 - 文章内容");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//左侧添加一个默认的返回图标
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
 
 
+
+//        Log.d(TAG, "这个位置"+url);
         initView();
         // 启用支持JavaScript
         WebSettings webSettings = getWebSettings();
@@ -102,12 +121,15 @@ public class ArticleContent extends AppCompatActivity {
     }
 
     private void initView() {
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setDisplayUseLogoEnabled(true);
         webView = (WebView) findViewById(R.id.webView);
         webView.setInitialScale(70);
-        data = getIntent();
-        url = data.getStringExtra("url");
+
+        String url1 = getIntent().getStringExtra("minuUrl");
+        String typeUrl = getIntent().getStringExtra("typeUrl");
+        url = pathConfing.BASE_URL_CROP + typeUrl +"/"+ url1;
+
         Log.d(TAG, "是否收到url"+url);
         webView.loadUrl(url);
         webView.setWebViewClient(new WebViewClient() {

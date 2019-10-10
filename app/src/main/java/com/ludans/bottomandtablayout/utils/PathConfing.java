@@ -8,6 +8,14 @@ public class PathConfing {
         public final String  PATH_YUMI = "http://download.ludashi123.cn/cropdata/%E7%8E%89%E7%B1%B3%E7%97%85%E8%99%AB%E5%AE%B3.json";//玉米
         public final String  PATH_YANCAO = "http://download.ludashi123.cn/cropdata/%E7%83%9F%E7%B3%96%E7%97%85%E5%AE%B3.json";//烟草
         public final String  BASE_URL ="http://nyncj.changde.gov.cn";
+        public final String  BASE_URL_CROP ="http://crop.agridata.cn";
+        public final String  PATH_YUMI_TYPE =  BASE_URL_CROP+"/disease/03－玉米";//玉米
+        public final String  PATH_SHUIDAO_TYPE =  BASE_URL_CROP+"/disease/01－水稻";
+        public final String  PATH_CHAYE_TYPE =  BASE_URL_CROP+"/disease/12－茶桑";
+        public final String  PATH_MIANHUA_TYPE =  BASE_URL_CROP+"/disease/09－棉麻";
+        public final String  PATH_YOUCAI_TYPE = BASE_URL_CROP+ "/disease/10－油料";
+        public final String  PATH_YANCAO_TYPE = BASE_URL_CROP+"/disease/11－糖烟";
+
 
     }
 
